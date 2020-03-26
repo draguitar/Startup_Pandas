@@ -34,14 +34,14 @@ hr_list = ['00','01','02','03','04',
 
 startDate_str = '2020-03-18'
 
-time_zoom = {}
+time_zone = {}
 # 年-月-日 小時  共24*7 168個日期小時區間
 for i in range(7):
     startDate = (parse(startDate_str) + timedelta(days = i)).strftime("%Y-%m-%d")
     for h in hr_list:
         d = parse("{} {}".format(startDate, h))
         d_str = d.strftime("%Y-%m-%d %H")
-        time_zoom[d_str] = 0
+        time_zone[d_str] = 0
       
 # df = pd.read_csv('sample.csv')        
 log_list = df_new[['login_hour','logout_hour']].values.tolist()
@@ -51,16 +51,16 @@ for log in log_list:
     st = log[0]
     et = log[1]
     
-    zoom = Interval(st, et )
+    zone = Interval(st, et )
     
     key_list = []
-    for k, v in time_zoom.items():
-        if k in zoom:
+    for k, v in time_zone.items():
+        if k in zone:
             # 該小時區間次數+1
-            time_zoom[k]+=1
+            time_zone[k]+=1
 
 dictlist = []
-for key, value in time_zoom.items():
+for key, value in time_zone.items():
     temp = [key,value]
     dictlist.append(temp)
 # %%
